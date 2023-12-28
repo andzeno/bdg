@@ -6,7 +6,7 @@ import (
 )
 
 // randBirthAge generates a random age from 18 to 88 and the birth date from time.Now()
-func randBirthAge() (int, string) {
+func RandBirthAge() (int, string) {
 	now := time.Now()
 
 	// Generate a random number between 18 and 88
@@ -17,3 +17,4 @@ func randBirthAge() (int, string) {
 
 	return age, birthDate
 }
+

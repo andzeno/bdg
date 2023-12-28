@@ -7,7 +7,7 @@ import (
 
 func TestRandBirthAge(t *testing.T) {
 	// Call function to test
-	age, birthDate := randBirthAge()
+	age, birthDate := RandBirthAge()
 
 	// Check if age is between 18 and 88
 	if age < 18 || age > 88 {
