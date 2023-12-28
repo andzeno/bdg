@@ -1,20 +1,19 @@
-package main
+package bdg
 
 import (
-	"fmt"
 	"math/rand"
 	"time"
 )
 
-func main() {
+// randBirthAge generates a random age from 18 to 88 and the birth date from time.Now()
+func randBirthAge() (int, string) {
 	now := time.Now()
-	rand.Seed(now.UnixNano())
 
 	// Generate a random number between 18 and 88
-	randAge := rand.Intn(71) + 18
+	age := rand.Intn(71) + 18
 
-	//
-	nYearsAgo := now.AddDate(-randAge, 0, 0)
-	fmt.Printf("Date %d Years Ago: %s\n", randAge, nYearsAgo)
+	// Compute and generate the date for the random age
+	birthDate := now.AddDate(-age, 0, 0).Format("2006-01-02")
+
+	return age, birthDate
 }
-
