@@ -13,7 +13,7 @@ type BirthDate struct {
 }
 
 // Generate outputs a BirthDate type
-func (b *BirthDate) Generate(values ...int) {
+func (b *BirthDate) Generate() {
 	now := time.Now()
 	// Generate between 18 and 88 for years
 	randYears := rand.Intn(71) + 18
@@ -22,27 +22,21 @@ func (b *BirthDate) Generate(values ...int) {
 	// 0-30 for days
 	randDays := rand.Intn(15) + rand.Intn(15)
 
-	// Generate birthdate data based on parameter count
-	paramsCnt := len(values)
-	if paramsCnt == 1 {
-		b.Years = values[0]
-		b.Months = randMonths
-		b.Days = randDays
-	} else if paramsCnt == 2 {
-		b.Years = values[0]
-		b.Months = values[1]
-		b.Days = randDays
-	} else if paramsCnt >= 3 {
-		b.Years = values[0]
-		b.Months = values[1]
-		b.Days = values[2]
-	} else if paramsCnt == 0 {
+	// Generate date data
+	if b.Years == 0 {
 		b.Years = randYears
+	}
+
+	if b.Months == 0 {
 		b.Months = randMonths
+	}
+
+	if b.Days == 0 {
 		b.Days = randDays
 	}
 
-	// Compute and generate the date for the random age
+	// Compute the birth date
 	b.Date = now.AddDate(-b.Years, b.Months, b.Days).Format("2006-01-02")
-
 }
+
+	
