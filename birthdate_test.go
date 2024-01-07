@@ -8,7 +8,7 @@ import (
 
 func TestGenerate(t *testing.T) {
 	// Call function to test
-	b := BirthDate{}
+	b := Nendai{}
 	b.Generate()
 
 	///
@@ -37,7 +37,7 @@ func TestGenerate(t *testing.T) {
 	///
 	// Test generation w/ year value present
 	///
-	y := BirthDate{
+	y := Nendai{
 		Years: 32,
 	}
 	y.Generate()
@@ -67,7 +67,7 @@ func TestGenerate(t *testing.T) {
 	///
 	// Test generation w/ year and month values present
 	///
-	ym := BirthDate{
+	ym := Nendai{
 		Years:  73,
 		Months: 10,
 	}
@@ -97,7 +97,7 @@ func TestGenerate(t *testing.T) {
 	///
 	// Test generation w/ year, month and days values present
 	///
-	ymd := BirthDate{
+	ymd := Nendai{
 		Years:  28,
 		Months: 42,
 		Days:   13,

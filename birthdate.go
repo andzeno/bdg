@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type BirthDate struct {
+type Nendai struct {
 	Years  int
 	Months int
 	Days   int
@@ -13,7 +13,7 @@ type BirthDate struct {
 }
 
 // Generate outputs a BirthDate type
-func (b *BirthDate) Generate() {
+func (n *Nendai) Generate() {
 	now := time.Now()
 	// Generate between 18 and 88 for years
 	randYears := rand.Intn(71) + 18
@@ -23,18 +23,18 @@ func (b *BirthDate) Generate() {
 	randDays := rand.Intn(15) + rand.Intn(15)
 
 	// Generate date data
-	if b.Years == 0 {
-		b.Years = randYears
+	if n.Years == 0 {
+		n.Years = randYears
 	}
 
-	if b.Months == 0 {
-		b.Months = randMonths
+	if n.Months == 0 {
+		n.Months = randMonths
 	}
 
-	if b.Days == 0 {
-		b.Days = randDays
+	if n.Days == 0 {
+		n.Days = randDays
 	}
 
 	// Compute the birth date
-	b.Date = now.AddDate(-b.Years, b.Months, b.Days).Format("2006-01-02")
+	n.Date = now.AddDate(-n.Years, n.Months, n.Days).Format("2006-01-02")
 }
