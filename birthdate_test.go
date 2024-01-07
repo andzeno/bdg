@@ -35,79 +35,94 @@ func TestGenerate(t *testing.T) {
 	_, err := time.Parse("2006-01-02", b.Date)
 
 	///
-	// Test generation w/ 1 input value
+	// Test generation w/ year value present
 	///
-	b.Generate(32)
+	y := BirthDate{
+		Years: 32,
+	}
+	y.Generate()
+
 	// Check if years equal input
-	if b.Years != 32 {
-		t.Errorf("Expected generated years to be 32, got %d", b.Years)
+	if y.Years != 32 {
+		t.Errorf("Expected generated years to be 32, got %d", y.Years)
 	}
 
 	// Check if months is beyond 11
-	if b.Months > 11 {
-		t.Errorf("Expected generated months doesn't exceed 11, got %d", b.Months)
+	if y.Months > 11 {
+		t.Errorf("Expected generated months doesn't exceed 11, got %d", y.Months)
 	}
 
 	// Check if days is beyond 30
-	if b.Days > 30 {
+	if y.Days > 30 {
 		t.Errorf("Expected generated days doesn't exceed 30, got %d", b.Days)
 	}
 
 	// Check if date generated is valid
-	_, err = time.Parse("2006-01-02", b.Date)
+	_, err = time.Parse("2006-01-02", y.Date)
 
 	if err != nil {
-		t.Errorf("Expected generated birth date %s isn't a valid date: %v", b.Date, err)
+		t.Errorf("Expected generated birth date %s isn't a valid date: %v", y.Date, err)
 	}
 
 	///
-	// Test generation w/ 2 input values
+	// Test generation w/ year and month values present
 	///
-	b.Generate(73, 10)
+	ym := BirthDate{
+		Years:  73,
+		Months: 10,
+	}
+	ym.Generate()
+
 	// Check if years equal input
-	if b.Years != 73 {
-		t.Errorf("Expected generated years to be 73, got %d", b.Years)
+	if ym.Years != 73 {
+		t.Errorf("Expected generated years to be 73, got %d", ym.Years)
 	}
 
 	// Check if months are equal
-	if b.Months != 10 {
-		t.Errorf("Expected generated months to be 10 , got %d", b.Months)
+	if ym.Months != 10 {
+		t.Errorf("Expected generated months to be 10 , got %d", ym.Months)
 	}
 	// Check if days is beyond 30
-	if b.Days > 30 {
-		t.Errorf("Expected generated days doesn't exceed 30, got %d", b.Days)
+	if ym.Days > 30 {
+		t.Errorf("Expected generated days doesn't exceed 30, got %d", ym.Days)
 	}
 
 	// Check if date generated is valid
-	_, err = time.Parse("2006-01-02", b.Date)
+	_, err = time.Parse("2006-01-02", ym.Date)
 
 	if err != nil {
-		t.Errorf("Expected generated birth date %s isn't a valid date: %v", b.Date, err)
+		t.Errorf("Expected generated birth date %s isn't a valid date: %v", ym.Date, err)
 	}
 
 	///
-	// Test generation w/ 3 input values
+	// Test generation w/ year, month and days values present
 	///
-	b.Generate(28, 42, 13)
+	ymd := BirthDate{
+		Years:  28,
+		Months: 42,
+		Days:   13,
+	}
+	ymd.Generate()
+
 	// Check if years equal input
-	if b.Years != 28 {
-		t.Errorf("Expected generated years to be 28, got %d", b.Years)
+	if ymd.Years != 28 {
+		t.Errorf("Expected generated years to be 28, got %d", ymd.Years)
 	}
 
 	// Check if months are equal
-	if b.Months != 42 {
-		t.Errorf("Expected generated months to be 42 , got %d", b.Months)
+	if ymd.Months != 42 {
+		t.Errorf("Expected generated months to be 42 , got %d", ymd.Months)
 	}
 
 	// Check if days are equal
-	if b.Days != 13 {
-		t.Errorf("Expected generated days to be 13, got %d", b.Days)
+	if ymd.Days != 13 {
+		t.Errorf("Expected generated days to be 13, got %d", ymd.Days)
 	}
 
 	// Check if date generated is valid
-	_, err = time.Parse("2006-01-02", b.Date)
+	_, err = time.Parse("2006-01-02", ymd.Date)
 
 	if err != nil {
-		t.Errorf("Expected generated birth date %s isn't a valid date: %v", b.Date, err)
+		t.Errorf("Expected generated birth date %s isn't a valid date: %v", ymd.Date, err)
 	}
 }
