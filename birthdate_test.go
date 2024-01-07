@@ -9,7 +9,7 @@ import (
 func TestGenerate(t *testing.T) {
 	// Call function to test
 	b := Nendai{}
-	b.Generate()
+	b.GenerateDate()
 
 	///
 	// Test generation w/o input values
@@ -40,7 +40,7 @@ func TestGenerate(t *testing.T) {
 	y := Nendai{
 		Years: 32,
 	}
-	y.Generate()
+	y.GenerateDate()
 
 	// Check if years equal input
 	if y.Years != 32 {
@@ -71,7 +71,7 @@ func TestGenerate(t *testing.T) {
 		Years:  73,
 		Months: 10,
 	}
-	ym.Generate()
+	ym.GenerateDate()
 
 	// Check if years equal input
 	if ym.Years != 73 {
@@ -102,7 +102,7 @@ func TestGenerate(t *testing.T) {
 		Months: 42,
 		Days:   13,
 	}
-	ymd.Generate()
+	ymd.GenerateDate()
 
 	// Check if years equal input
 	if ymd.Years != 28 {
