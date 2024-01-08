@@ -2,6 +2,9 @@ package bdg
 
 import (
 	"fmt"
+	"io"
+	"log"
+	"os"
 	"testing"
 	"time"
 )
@@ -9,7 +12,7 @@ import (
 func TestGenerate(t *testing.T) {
 	// Call function to test
 	b := Nendai{}
-	b.GenerateDate()
+	b.Generate()
 
 	///
 	// Test generation w/o input values
@@ -29,10 +32,11 @@ func TestGenerate(t *testing.T) {
 		t.Errorf("Expected generated days doesn't exceed 30, got %d", b.Days)
 	}
 
-	fmt.Println(b.Date)
-
 	// Check if date generated is valid
 	_, err := time.Parse("2006-01-02", b.Date)
+	if err != nil {
+		t.Errorf("Expected generated date %s isn't a valid date: %v", b.Date, err)
+	}
 
 	///
 	// Test generation w/ year value present
@@ -40,7 +44,7 @@ func TestGenerate(t *testing.T) {
 	y := Nendai{
 		Years: 32,
 	}
-	y.GenerateDate()
+	y.Generate()
 
 	// Check if years equal input
 	if y.Years != 32 {
@@ -61,7 +65,7 @@ func TestGenerate(t *testing.T) {
 	_, err = time.Parse("2006-01-02", y.Date)
 
 	if err != nil {
-		t.Errorf("Expected generated birth date %s isn't a valid date: %v", y.Date, err)
+		t.Errorf("Expected generated date %s isn't a valid date: %v", y.Date, err)
 	}
 
 	///
@@ -71,7 +75,7 @@ func TestGenerate(t *testing.T) {
 		Years:  73,
 		Months: 10,
 	}
-	ym.GenerateDate()
+	ym.Generate()
 
 	// Check if years equal input
 	if ym.Years != 73 {
@@ -91,7 +95,7 @@ func TestGenerate(t *testing.T) {
 	_, err = time.Parse("2006-01-02", ym.Date)
 
 	if err != nil {
-		t.Errorf("Expected generated birth date %s isn't a valid date: %v", ym.Date, err)
+		t.Errorf("Expected generated date %s isn't a valid date: %v", ym.Date, err)
 	}
 
 	///
@@ -102,7 +106,7 @@ func TestGenerate(t *testing.T) {
 		Months: 42,
 		Days:   13,
 	}
-	ymd.GenerateDate()
+	ymd.Generate()
 
 	// Check if years equal input
 	if ymd.Years != 28 {
@@ -123,6 +127,57 @@ func TestGenerate(t *testing.T) {
 	_, err = time.Parse("2006-01-02", ymd.Date)
 
 	if err != nil {
-		t.Errorf("Expected generated birth date %s isn't a valid date: %v", ymd.Date, err)
+		t.Errorf("Expected generated date %s isn't a valid date: %v", ymd.Date, err)
+	}
+}
+
+// Test Stringer method
+func TestString(t *testing.T) {
+
+	// Create a Nendai
+	n := Nendai{
+		Years:  22,
+		Months: 7,
+		Days:   3,
+	}
+
+	// Redirect output for testing
+	// Use a file as temporary standard output
+	tmpOut := "/tmp/nendai.out"
+
+	f, err := os.Create(tmpOut)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Close the file
+	defer f.Close()
+
+	// Preserve current standard output by assinging onto a variable
+	oldStdout := os.Stdout
+
+	// Redirect current standard output to the file
+	os.Stdout = f
+
+	// Ensure restoration of standard output location
+	defer func() { os.Stdout = oldStdout }()
+
+	fmt.Println(n)
+
+	data, err := io.ReadAll(f)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	got := string(data)
+	expected := "Years: 22, Months: 7, Days: 3, Date: 0000-00-00"
+	if got != expected {
+		t.Errorf("Expected: %s, Got %s", expected, got)
+	}
+
+	// Remove the temporary output file
+	err = os.Remove(tmpOut)
+	if err != nil {
+		log.Fatal(err)
 	}
 }

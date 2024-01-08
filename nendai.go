@@ -1,10 +1,22 @@
 package bdg
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 )
 
+// Use a constant date layout throughout
+const layout = "2006-01-02"
+
+/*
+A Nendai consists of:
+
+	Years:  elapsed years
+	Months: elapsed months
+	Days:   elapsed days
+	Date:   total elapsed combined duration in yyyy-mm-dd format
+*/
 type Nendai struct {
 	Years  int
 	Months int
@@ -12,8 +24,8 @@ type Nendai struct {
 	Date   string
 }
 
-// GenerateDate gives a Nendai Date member based on duration
-func (n *Nendai) GenerateDate() {
+// Generate populates all Nendai field members
+func (n *Nendai) Generate() {
 	now := time.Now()
 	// Generate between 18 and 88 for years
 	randYears := rand.Intn(71) + 18
@@ -35,6 +47,17 @@ func (n *Nendai) GenerateDate() {
 		n.Days = randDays
 	}
 
-	// Compute the date based on duration data
-	n.Date = now.AddDate(-n.Years, n.Months, n.Days).Format("2006-01-02")
+	// Compute the Nendai Date based on duration data
+	n.Date = now.AddDate(-n.Years, n.Months, n.Days).Format(layout)
 }
+
+// Define a Stringer method to aid in display
+func (n *Nendai) String() string {
+	return fmt.Sprintf("Years: %d, Months: %d, Days: %d, Date: %s", n.Years, n.Months, n.Days, n.Date)
+}
+
+// GenerateDate Nendai Date member based on existing duration
+// func (n *Nendai) GenerateData() {
+// 	nTime, err := time.Parse(layout, n.Date)
+
+// }
